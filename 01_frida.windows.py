@@ -17,7 +17,6 @@ try:
 
     modules = script.exports_sync.enumerate_modules()
     
-    # Imprimiendo cada módulo en una nueva línea
     for module in modules:
         print(module["name"])
 

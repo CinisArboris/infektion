@@ -7,12 +7,12 @@ def on_message(message, data):
         print(message)
 
 jscode = """
-Java.perform(function () {
+Java.perform(() => {
   // Function to hook is defined here
-  var MainActivity = Java.use('com.example.seccon2015.rock_paper_scissors.MainActivity');
+  const MainActivity = Java.use('com.example.seccon2015.rock_paper_scissors.MainActivity');
 
   // Whenever button is clicked
-  var onClick = MainActivity.onClick;
+  const onClick = MainActivity.onClick;
   onClick.implementation = function (v) {
     // Show a message to know that the function got called
     send('onClick');
@@ -31,7 +31,8 @@ Java.perform(function () {
 });
 """
 
-process = frida.get_usb_device().attach('com.example.seccon2015.rock_paper_scissors')
+# 3887  rock_paper_scissors
+process = frida.get_usb_device().attach('rock_paper_scissors')
 script = process.create_script(jscode)
 script.on('message', on_message)
 print('[*] Running CTF')
