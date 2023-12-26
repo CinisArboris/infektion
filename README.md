@@ -1,30 +1,20 @@
 # Infektion
 
-## Introducción
-Este es **Infektion**, mi campo de batalla para dominar Frida, enfrentar CTFs, y testear apps. Es público, crudo y directo.
+## Descripción General
+"Infektion" es un repositorio centrado en la seguridad informática, con especial énfasis en la ingeniería inversa y el análisis de aplicaciones Android. Aquí comparto mis prácticas, scripts en Python orientados a Android, y soluciones detalladas a desafíos de CTF (Capture The Flag).
 
-## Frida: La Herramienta
-[Frida](https://www.frida.re/) es clave aquí. La uso para modificar apps en tiempo real. Es versátil y potente, ideal para entender el funcionamiento interno de cualquier aplicación.
+## Enfoque en Android
+Destacando un interés particular en el sistema operativo Android, este repositorio utiliza Python como herramienta principal para desarrollar scripts que exploran y desentrañan la seguridad de las aplicaciones móviles.
 
-## Objetivos
-- **Dominar Frida**: Aprender cada truco y técnica.
-- **Retos CTF**: Resolver, documentar y compartir mis soluciones.
-- **Testeo de Apps**: Experimentar y aprender de la estructura y seguridad de otras aplicaciones.
+## Contenidos del Repositorio
+- **Scripts en Python**: Herramientas y scripts para manipular y analizar aplicaciones Android.
+- **Soluciones CTF**: Estrategias y soluciones a desafíos de CTF, con un enfoque en retos relacionados con aplicaciones Android.
+- **Guías y Tutoriales**: Instrucciones paso a paso sobre el uso de los scripts y herramientas disponibles, junto con consejos y prácticas recomendadas en ingeniería inversa.
 
-## Contenidos
-- `Guías Frida`: Desde lo básico hasta lo avanzado.
-- `Soluciones CTF`: Mis conquistas y estrategias.
-- `Análisis de Apps`: Lo que descubro mientras las desarmo.
-
-## Contribuciones
-Si te gusta romper cosas y reconstruirlas, tus contribuciones son bienvenidas. Haz un `pull request` o abre un `issue`.
+## Objetivo
+Este espacio sirve como recurso educativo y plataforma de intercambio de conocimientos para quienes están interesados en la seguridad de aplicaciones móviles, especialmente dentro del ecosistema Android.
 
 ## Licencia
-Todo esto está bajo [MIT License](LICENSE). Usa, modifica, comparte.
-
-## Contacto
-Para dudas, debates o ideas locas, contáctame. Vamos a romper algunas reglas.
+Todo el contenido en "Infektion" se ofrece bajo [MIT License](LICENSE), facilitando su uso, modificación y distribución.
 
 ---
-
-**Infektion**: Más que un repo, es mi zona de guerra en el mundo del hacking y la ingeniería inversa.
