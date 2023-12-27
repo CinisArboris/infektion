@@ -32,7 +32,7 @@ def modify_method_return_value(device_id, process_name, full_activity_name, meth
 
     try:
         print(f"> Forzando el valor de retorno del método '{method_name}' a 'true'...")
-        device = frida.get_device(device_id, timeout=10)
+        device = frida.get_device(device_id, timeout=2)
         session = device.attach(process_name)
         script = session.create_script(jscode)
         script.on('message', on_message)

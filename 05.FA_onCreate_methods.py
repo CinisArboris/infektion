@@ -26,7 +26,7 @@ def analyze_specific_methods(device_id, process_name, package_name, main_activit
 
     try:
         print("> Analizando métodos específicos en: " + process_name)
-        device = frida.get_device(device_id, timeout=10)
+        device = frida.get_device(device_id, timeout=2)
         session = device.attach(process_name)
         script = session.create_script(jscode)
         script.on('message', on_message)
