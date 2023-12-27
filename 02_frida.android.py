@@ -7,34 +7,41 @@ def on_message(message, data):
         print(message)
 
 jscode = """
-Java.perform(() => {
-  // Function to hook is defined here
-  const MainActivity = Java.use('com.example.seccon2015.rock_paper_scissors.MainActivity');
+  Java.perform(() => {
+    // Function to hook is defined here
+    const MainActivity = Java.use('com.example.seccon2015.rock_paper_scissors.MainActivity');
 
-  // Whenever button is clicked
-  const onClick = MainActivity.onClick;
-  onClick.implementation = function (v) {
-    // Show a message to know that the function got called
-    send('onClick');
+    // Whenever button is clicked
+    const onClick = MainActivity.onClick;
+    onClick.implementation = function (v) {
+      // Show a message to know that the function got called
+      send('onClick');
 
-    // Call the original onClick handler
-    onClick.call(this, v);
+      // Call the original onClick handler
+      onClick.call(this, v);
 
-    // Set our values after running the original onClick handler
-    this.m.value = 0;
-    this.n.value = 1;
-    this.cnt.value = 999;
+      // Set our values after running the original onClick handler
+      this.m.value = 0;
+      this.n.value = 1;
+      this.cnt.value = 999;
 
-    // Log to the console that it's done, and we should have the flag!
-    console.log('Done:' + JSON.stringify(this.cnt));
-  };
-});
+      // Log to the console that it's done, and we should have the flag!
+      console.log('Done:' + JSON.stringify(this.cnt));
+    };
+  });
 """
 
-# 3887  rock_paper_scissors
-process = frida.get_usb_device().attach('rock_paper_scissors')
-script = process.create_script(jscode)
-script.on('message', on_message)
-print('[*] Running CTF')
-script.load()
-sys.stdin.read()
+try:
+    # Intenta adjuntar Frida al proceso
+    process = frida.get_usb_device().attach('rock_paper_scissors')
+    script = process.create_script(jscode)
+    script.on('message', on_message)
+    print('[*] Running CTF')
+    script.load()
+    sys.stdin.read()
+except frida.ProcessNotFoundError:
+    print('Error: No se pudo encontrar el proceso especificado.')
+except frida.ServerNotRunningError:
+    print('Error: El servidor de Frida no se está ejecutando.')
+except Exception as e:
+    print(f'Error inesperado: {e}')
