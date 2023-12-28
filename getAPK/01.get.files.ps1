@@ -8,9 +8,22 @@ $config = Get-Content $configFilePath | ConvertFrom-Json
 # Define la ruta de destino
 $destinationDir = $config.apk_destination_path
 
-# Obtener las rutas de los archivos APK en el dispositivo
+# Obtener ID del dispositivo
 $device_id = $config.device_id
-$package_name = $config.package_name
+
+# Verifica si el dispositivo está conectado
+try {
+    $deviceList = adb devices
+    if (-not ($deviceList -like "*$device_id*")) {
+        Write-Host "Dispositivo $device_id no encontrado. Asegúrate de que esté conectado y en modo depuración."
+        exit
+    }
+} catch {
+    Write-Host "Error al intentar comunicarse con adb. Asegúrate de que adb esté instalado y configurado correctamente."
+    exit
+}
+
+# Obtener las rutas de los archivos APK en el dispositivo
 $apkBasePath = $config.apk_base_path
 
 # Construir comandos adb para extraer los archivos APK
