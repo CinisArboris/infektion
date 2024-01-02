@@ -5,10 +5,10 @@ Clear-Host
 $configFilePath = Join-Path $PSScriptRoot "..\configMe.json"
 $config = Get-Content $configFilePath | ConvertFrom-Json
 
-# Define la ruta de los APKs modificados
-$editedApkDir = "#"
+# Define la ruta de los APKs modificados utilizando la configuración
+$editedApkDir = $config.edited_apk_dir
 
-# Obtener ID del dispositivo
+# Obtener ID del dispositivo desde la configuración
 $device_id = $config.device_id
 
 # Construir el comando adb para instalar múltiples APKs
