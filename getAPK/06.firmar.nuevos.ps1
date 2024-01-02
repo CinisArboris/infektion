@@ -6,12 +6,12 @@ $configFilePath = Join-Path $PSScriptRoot "..\configMe.json"
 $config = Get-Content $configFilePath | ConvertFrom-Json
 
 # Define la ruta del directorio de APKs editados
-$editedApkDir = $config.edited_apk_dir
+$editedApkDir = $config.rebuilt_apk_dir
 
-# Información del keystore
-$keystorePath = "#"
-$keystoreAlias = "#"
-$keystorePass = "#"
+# Información del keystore desde la configuración
+$keystorePath = $config.keystore_path
+$keystoreAlias = $config.keystore_alias
+$keystorePass = $config.keystore_pass
 
 # Firma cada APK en el directorio de APKs editados
 foreach ($apkFile in $config.apk_files) {
