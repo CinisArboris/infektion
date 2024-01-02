@@ -5,20 +5,20 @@ Clear-Host
 $configFilePath = Join-Path $PSScriptRoot "..\configMe.json"
 $config = Get-Content $configFilePath | ConvertFrom-Json
 
-# Define la ruta del directorio de APKs editados
-$editedApkDir = $config.rebuilt_apk_dir
+# Define la ruta del directorio de APKs reconstruidos
+$rebuiltApkDir = $config.rebuilt_apk_dir
 
 # Información del keystore desde la configuración
-$keystorePath = $config.keystore_path
+$keystorePath = Join-Path $config.keystore_dir $config.keystore_name
 $keystoreAlias = $config.keystore_alias
 $keystorePass = $config.keystore_pass
 
-# Firma cada APK en el directorio de APKs editados
+# Firma cada APK en el directorio de APKs reconstruidos
 foreach ($apkFile in $config.apk_files) {
-    $apkPath = Join-Path $editedApkDir $apkFile
+    $apkPath = Join-Path $rebuiltApkDir $apkFile
 
     # Comando para firmar el APK con apksigner
-    $apksignerCommand = "apksigner sign --ks `"$keystorePath`" --ks-pass pass:$keystorePass --key-pass pass:$keystorePass --out `"$apkPath`" `"$apkPath`""
+    $apksignerCommand = "apksigner sign --ks `"$keystorePath`" --ks-key-alias `"$keystoreAlias`" --ks-pass pass:$keystorePass --key-pass pass:$keystorePass `"$apkPath`""
 
     # Ejecutar el comando de firma
     try {
@@ -30,7 +30,7 @@ foreach ($apkFile in $config.apk_files) {
 }
 
 # Verificar la firma de un APK como ejemplo
-$verifyCommand = "apksigner verify --verbose `"$editedApkDir\base.apk`""
+$verifyCommand = "apksigner verify --verbose `"$rebuiltApkDir\base.apk`""
 try {
     Invoke-Expression $verifyCommand
     Write-Host "La firma del APK base ha sido verificada."
