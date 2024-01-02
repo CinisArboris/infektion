@@ -1,16 +1,20 @@
 # Limpia la consola
 Clear-Host
 
-# Define la ruta donde se creará el keystore
-$keystoreDir = "#"
-$keystorePath = Join-Path $keystoreDir "#"
+# Carga la configuración desde configMe.json
+$configFilePath = Join-Path $PSScriptRoot "..\configMe.json"
+$config = Get-Content $configFilePath | ConvertFrom-Json
 
-# Información del keystore
-$keystoreAlias = "#"
-$keystorePass = "#"
-$keyAlg = "RSA"
-$keySize = 2048
-$validity = 10000 # Número de días de validez
+# Define la ruta y el nombre del keystore
+$keystoreDir = $config.keystore_dir
+$keystorePath = Join-Path $keystoreDir $config.keystore_name
+
+# Información del keystore desde la configuración
+$keystoreAlias = $config.keystore_alias
+$keystorePass = $config.keystore_pass
+$keyAlg = $config.key_alg
+$keySize = $config.key_size
+$validity = $config.validity
 
 # Crear el directorio si no existe
 if (-not (Test-Path -Path $keystoreDir)) {
