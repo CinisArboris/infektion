@@ -1,5 +1,5 @@
 # Definición de variables
-$fridaServerPath = "../frida-server"
+$fridaServerPath = "../../frida-server"
 $devicePath = "/data/local/tmp/frida-server"
 $deviceID = "emulator-5554"
 
