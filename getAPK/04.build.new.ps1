@@ -38,7 +38,7 @@ $waitTime = 0
 while (-not (Test-Path $rebuiltApkFullPath)) {
     Start-Sleep -Seconds 5
     $waitTime += 5
-    if ($waitTime -ge 60) {  # Puedes ajustar el tiempo máximo de espera según sea necesario
+    if ($waitTime -ge 120) {  # Puedes ajustar el tiempo máximo de espera según sea necesario
         Write-Host "Tiempo de espera excedido para la creación del APK."
         return "Error"
     }
