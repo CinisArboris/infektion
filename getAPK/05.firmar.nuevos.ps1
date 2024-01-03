@@ -15,9 +15,17 @@ $keystorePass = $config.keystore_pass
 
 $allSignedSuccessfully = $true
 
-# Firma cada APK en el directorio de APKs reconstruidos
+# Firma y alinea cada APK en el directorio de APKs reconstruidos
 foreach ($apkFile in $config.apk_files) {
     $apkPath = Join-Path $rebuiltApkDir $apkFile
+    $tempAlignedApkPath = Join-Path $rebuiltApkDir ("temp_aligned_" + $apkFile)
+
+    # Alinea el APK y guarda en un archivo temporal
+    $zipAlignCommand = "zipalign -f -p 4 `"$apkPath`" `"$tempAlignedApkPath`""
+    Invoke-Expression $zipAlignCommand
+
+    # Reemplaza el archivo original con el archivo alineado
+    Move-Item -Path $tempAlignedApkPath -Destination $apkPath -Force
 
     # Comando para firmar el APK con apksigner
     $apksignerCommand = "apksigner sign --ks `"$keystorePath`" --ks-key-alias `"$keystoreAlias`" --ks-pass pass:$keystorePass --key-pass pass:$keystorePass `"$apkPath`""
@@ -25,9 +33,9 @@ foreach ($apkFile in $config.apk_files) {
     # Ejecutar el comando de firma
     try {
         Invoke-Expression $apksignerCommand
-        Write-Host "APK firmado con éxito: $apkFile"
+        Write-Host "APK firmado y alineado con éxito: $apkFile"
     } catch {
-        Write-Host "Error al firmar el APK: $apkFile"
+        Write-Host "Error al firmar o alinear el APK: $apkFile"
         $allSignedSuccessfully = $false
     }
 }
