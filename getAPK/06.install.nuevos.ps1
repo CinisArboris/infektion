@@ -19,9 +19,8 @@ $installCommand = "adb -s $device_id install-multiple " + ($apkFiles -join " ")
 try {
     Invoke-Expression $installCommand
     Write-Host "Comando de instalación ejecutado con éxito."
+    return "Success"  # Indica éxito
 } catch {
     Write-Host "Error al ejecutar el comando de instalación: $_"
+    return "Error"  # Indica un error
 }
-
-# Opcional: Verificación de la instalación
-# Aquí puedes añadir código para verificar si la instalación fue exitosa.
