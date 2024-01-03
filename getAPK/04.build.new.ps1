@@ -33,13 +33,13 @@ try {
     return "Error"
 }
 
-# Espera a que se cree el archivo APK
+# Espera a que se cree el archivo APK y que su tamaño sea mayor a 5 MB
 $waitTime = 0
-while (-not (Test-Path $rebuiltApkFullPath)) {
+while (-not (Test-Path $rebuiltApkFullPath) -or ((Get-Item $rebuiltApkFullPath).Length -lt 5MB)) {
     Start-Sleep -Seconds 5
     $waitTime += 5
     if ($waitTime -ge 120) {  # Puedes ajustar el tiempo máximo de espera según sea necesario
-        Write-Host "Tiempo de espera excedido para la creación del APK."
+        Write-Host "Tiempo de espera excedido para la creación del APK o el archivo es demasiado pequeño."
         return "Error"
     }
 }
