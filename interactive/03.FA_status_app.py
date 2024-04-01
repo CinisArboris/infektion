@@ -10,7 +10,7 @@ def load_config(config_file):
 def check_app_running(device_id, process_name):
     try:
         print("> Verificando si la aplicación está en ejecución...")
-        device = frida.get_device(device_id, timeout=2)
+        device = frida.get_device(device_id, timeout=1)
         device.attach(process_name)
         print(f"> La aplicación '{process_name}' está en ejecución.")
         return True
